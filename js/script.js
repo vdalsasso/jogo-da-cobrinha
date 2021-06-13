@@ -2,6 +2,8 @@ let canvas = document.getElementById("snake"); //criar elemento que irá rodar o
 let context = canvas.getContext("2d"); //....
 let box = 32;
 let snake = []; //criar cobrinha como lista, já que ela vai ser uma série de coordenadas, que quando pintadas, criam os quadradinhos
+let placar  = 0;
+
 snake[0] ={
     x: 8 * box,
     y: 8 * box
@@ -12,6 +14,12 @@ let direction = "right";
 let food ={
     x: Math.floor(Math.random() * 15 + 1) * box,
     y: Math.floor(Math.random() * 15 + 1) * box
+}
+
+var audio = document.getElementById('audio');
+
+function sound() {
+    audio.play();        // play it through JavaScript after 3 seconds
 }
 
 function criarBG(){
@@ -52,7 +60,7 @@ function iniciarJogo(){
     for(i = 1; i < snake.length; i++){ //terminar jogo se a cobrinha se chocar
         if(snake[0].x == snake[i].x && snake[0].y == snake[i].y){
             clearInterval(jogo);
-            alert('Game Over :(');
+            alert('Parece que faltou skin in the game... ou sobrou skin... ou snake: Ah, sei lá :(');
 
             document.location.reload(true);
         }
@@ -75,6 +83,9 @@ function iniciarJogo(){
     }else{
         food.x = Math.floor(Math.random() * 15 +1) * box;
         food.y = Math.floor(Math.random() * 15 +1) * box;
+        placar++;
+        document.getElementById("placar").innerHTML = placar;
+        sound();
     }
     
     let newHead ={
@@ -82,6 +93,7 @@ function iniciarJogo(){
         y: snakeY
     }
 
+    
     snake.unshift(newHead); //método unshift adiciona como primeiro quadradinho da cobrinha
 }
 
